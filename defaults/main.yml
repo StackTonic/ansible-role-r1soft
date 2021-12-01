@@ -1,0 +1,19 @@
+---
+r1soft_yum_repo_enabled: true
+r1soft_apt_release_channel: main
+# Note that xenial repo is used for all Debian derivatives at this time.
+r1soft_apt_repository: "deb http://repo.r1soft.com/apt stable {{ kubernetes_apt_release_channel }}"
+r1soft_apt_ignore_key_error: false
+
+
+r1soft_config_ConfDir: "/usr/sbin/r1soft/conf"
+r1soft_config_LogDir: "/usr/sbin/r1soft/log"
+r1soft_config_LogFileMaxBytes: "33554432"
+r1soft_config_LogFileMaxFiles: "10"
+r1soft_config_BindTo: "0.0.0.0"
+r1soft_config_LocalPort: "1167"
+r1soft_config_MaximumNetworkConnections: "32"
+r1soft_config_RecoveryMode: "0"
+r1soft_config_PidFile: "/var/run/cdp.pid"
+r1soft_config_LockFile: "/var/run/cdp.lock"
+r1soft_backup_server: "http://127.0.0.1"

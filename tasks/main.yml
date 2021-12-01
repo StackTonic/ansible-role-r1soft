@@ -1,0 +1,55 @@
+---
+# Variable setup.
+- name: Include OS-specific variables.
+  include_vars: "{{ ansible_os_family }}.yml"
+
+# Setup/install tasks.
+- include_tasks: setup-RedHat.yml
+  when: ansible_os_family == 'RedHat' or ansible_os_family == 'Rocky'
+
+- include_tasks: setup-Debian.yml
+  when: ansible_distribution == 'Ubuntu'
+- include_tasks: setup-Debian.yml
+  when: ansible_os_family == 'Debian'
+
+
+- name: Enable r1soft repo.
+  template:
+    src: agent_config.j2
+    dest: /usr/sbin/r1soft/conf/agent_config
+    owner: root
+    group: "root"
+    mode: 0644
+  when: r1soft_yum_repo_enabled | bool
+
+- name: Testing Connection  to TCP port HTTPS (443), on the host krnlbld.r1soft.com.
+  run_once: true
+  command: >
+     serverbackup-setup --test-connection
+  register: contest
+
+- name: Build Server Backup Kernel Module Online
+  run_once: true
+  command: >
+      serverbackup-setup --get-module
+  register: contest
+
+- name: Install server Public Key
+  run_once: true
+  command: >
+      serverbackup-setup --get-key {{ r1soft_backup_server }}
+
+- name: Load Server Backup Kernel Module Online
+  run_once: true
+  command: >
+      /etc/init.d/cdp-agent restart
+  register: contest
+- name: Open Firewall Port
+  firewalld:
+    state: enabled
+    port: "{{ r1soft_config_LocalPort }}/tcp"
+    permanent: yes
+    immediate: yes
+
+
+

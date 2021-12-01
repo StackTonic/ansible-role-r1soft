@@ -1,0 +1,4 @@
+---
+root_group: root
+r1soft_package_name: "serverbackup-enterprise-agent"
+r1soft_package_kernel: "linux-headers-{{ ansible_kernel }}"

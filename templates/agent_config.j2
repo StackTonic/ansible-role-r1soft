@@ -1,0 +1,66 @@
+# {{ ansible_managed }}
+##############################################################################
+#
+# Copyright (c) 2011 Idera, Inc. All rights reserved.
+#
+# Idera Server Backup Agent Configuration File
+#
+##############################################################################
+
+# ConfDir sets the path the agent will use to find its configuration files.
+# The default is: /usr/sbin/r1soft/conf
+ConfDir={{ r1soft_config_ConfDir }}
+
+# LogDir sets the directory the agent will use to write log files to.
+# The default is: /usr/sbin/r1soft/log
+LogDir={{ r1soft_config_LogDir }}
+
+# LogFileMaxBytes sets the maximum size in bytes of an agent log file
+# before it is rolled over and a new log file is created.
+# The default is: 33554432 ( 32 Megabytes )
+LogFileMaxBytes={{ r1soft_config_LogFileMaxBytes }}
+
+# LogFilesMaxFiles sets the maximum number of log files the agent will
+# create before it starts deleting older log files. The value of zero
+# will allow an unlimited number of files.
+# The default is: 10
+LogFileMaxFiles={{ r1soft_config_LogFileMaxFiles }}
+
+# BindTo sets the IP address the agent will use to listen network requests
+# from CDP servers. It must be in the form xxx.xxx.xxx.xxx. The address
+# 0.0.0.0 will allow connections from any IP address configured on the
+# machine.
+# The agent default is: 127.0.0.1
+# The configuration file default is: 0.0.0.0
+#BindTo=127.0.0.1
+BindTo={{ r1soft_config_BindTo }}
+
+# LocalPort sets the port the agent will use to listen for network requests
+# from CDP servers.
+# The default is: 1167
+LocalPort={{ r1soft_config_LocalPort }}
+
+# IoCharacterSet sets the code page to use for translating file paths to
+# and from the file system. When not set, the agent discovers the code page
+# from the LANG environment variable.
+#IoCharacterSet=
+
+# MaximumNetworkConnections sets the maximum number of simultaneous network
+# connections the agent will accept at one time. This is used to limit the
+# amount of system resources the agent will use to process new connections.
+# The default is: 32
+MaximumNetworkConnections={{ r1soft_config_MaximumNetworkConnections }}
+
+# RecoveryMode disables authentication between the CDP server and the agent.
+# The default is: 0
+RecoveryMode={{ r1soft_config_RecoveryMode }}
+
+# PidFile sets the path and file name of the file the agent will use to
+# write a pid file with the process id of the currently running agent.
+# The default is: /var/run/cpd.pid
+PidFile={{ r1soft_config_PidFile }}
+
+# LockFile sets the path and file name of the file the agent will use to
+# write a locked file to prevent more than one agent from running at a time.
+# The default is: /var/lock/cdp.lock
+LockFile={{ r1soft_config_LockFile }}

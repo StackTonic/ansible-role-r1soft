@@ -1,0 +1,30 @@
+---
+- name: Ensure dependencies are installed.
+  apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+    state: present
+
+- name: Add r1soft apt key.
+  apt_key:
+    url: http://repo.r1soft.com/r1soft.asc
+    state: present
+  register: add_repository_key
+  ignore_errors: "{{ r1soft_apt_ignore_key_error }}"
+
+- name: Add r1soft repository.
+  apt_repository:
+    repo: "{{ r1soft_apt_repository }}"
+    state: present
+    update_cache: true
+
+- name: Ensure r1soft is installed.
+  package:
+    name: "{{ r1soft_package_name }}"
+    state: present
+
+- name: Ensure Kernel Source is installed.
+  package:
+    name: "{{ r1soft_package_kernel }}"
+    state: present
